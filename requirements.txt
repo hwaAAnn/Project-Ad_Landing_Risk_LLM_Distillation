@@ -1,0 +1,4 @@
+# 맡은 provider의 것만 설치하면 된다 — Gemini 담당자에게 anthropic은 필요 없다
+anthropic==1.0.0      # --provider claude
+google-genai          # --provider gemini
+openai                # --provider openai

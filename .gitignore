@@ -1,0 +1,55 @@
+# ── 실제 데이터셋 ────────────────────────────────────────────────────────────
+# 페이지 본문에 개인 이메일과 제3자 저작물이 들어 있어 저장소에 두지 않는다.
+# 팀 내부에서 별도로 공유하고, 받은 파일이 같은 것인지는 README의 SHA256으로 확인한다.
+# dataset/prompt_spec.json 은 **반대로 커밋한다** — 세 provider가 같은 기준을 썼다는 봉인
+dataset/cases.jsonl
+dataset/cases_251_*.jsonl
+# _cases_251_*_idmap.json 은 **커밋한다** — db id 매핑·선별 조건은 출처 추적 기록이고
+# 페이지 본문을 담지 않는다
+
+# ── 판정 결과 ────────────────────────────────────────────────────────────────
+# provider별 판정·병합표·dry-run 산출물. 프롬프트 전문과 판정 문장이 들어간다
+results/*/*.jsonl
+results/*/*.csv
+
+# ── Historical Reference (팀 가이드라인 §8) ──────────────────────────────────
+# 운영 DB의 과거 Claude 판정. reason·evidence가 그대로 들어가므로 결과 파일과 같이 취급
+references/*.jsonl
+
+# ── Gold Label (팀 가이드라인 §8) ────────────────────────────────────────────
+# gold/*.jsonl 은 **커밋한다** — 팀 산출물이고 case_id·url·risk·type만 담는다.
+# 라벨링 중간본(to_label)은 사람이 채우는 작업 파일이라 각자 관리
+dataset/to_label_*.json
+
+# ── 학습셋 ──────────────────────────────────────────────────────────────────
+# text 가 조립된 프롬프트 전문(= 페이지 본문)이라 결과 파일과 같이 취급한다
+dataset/trainset_*.jsonl
+
+# ── 자격 증명 ────────────────────────────────────────────────────────────────
+# API key는 환경변수로만 받는다. 어떤 형태로도 저장소에 두지 않는다
+.env
+.env.*
+# .env 를 읽어 환경변수로 올리는 개인용 실행기 — 공유 코드(run_eval.py)를 고치지 않기 위한 것
+runenv.py
+*.pem
+*credentials*.json
+*service-account*.json
+
+# ── 파이썬 ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# ── OS · 에디터 ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# ── Student model ────────────────────────────────────────────────────────────
+# LoRA adapters (weights) and per-case predictions. Predictions carry case ids of
+# unreleased data, adapters are large
+adapters/
+predictions/
